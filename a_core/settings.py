@@ -148,3 +148,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
 
+
+ACCOUNT_USERNAME_BLACKLIST = [  'accounts', 'profile', 'category', 'post', 'inbox', 'theboss' ]
+
