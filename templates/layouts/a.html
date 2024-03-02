@@ -1,11 +1,8 @@
-{% extends 'base.html'%}
-
+{% extends 'base.html' %}
 
 {% block layout %}
 
-
 {% include 'includes/hero.html' %}
-
 
 <content x-data="{ mobileSidebarOpen: false }" class="grid grid-cols-3 max-w-7xl mx-auto my-6 px-6">
     <mobileSidebarNav class="md:hidden col-span-full mx-auto mb-6 z-10 relative">
@@ -15,13 +12,15 @@
         </a>
     </mobileSidebarNav>
     <main class="col-span-full md:col-span-2 md:mr-[5%] lg:mx-[10%] order-2 md:order-1">
+
         {% block content %}
         {% endblock %}
-    </main>
-        
-    {% include 'includes/sidebar.html' %}
-    
-</content>
 
+    </main>
+    
+    {% load sidebar %}
+    {% sidebar_view tag %}
+
+</content>
 
 {% endblock %}

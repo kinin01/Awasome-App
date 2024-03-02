@@ -23,6 +23,8 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+    path('inbox/', include('a_inbox.urls')),
+     
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', home_view, name='home'),
@@ -33,7 +35,7 @@ urlpatterns = [
     path('post/<pk>/', post_page_view, name="post"), 
     path('post/like/<pk>/', like_post, name="like-post"), 
     path('comment/like/<pk>/', like_comment, name="like-comment"), 
-     path('reply/like/<pk>/', like_reply, name="like-reply"), 
+    path('reply/like/<pk>/', like_reply, name="like-reply"), 
     path('profile/', profile_view, name="profile"), 
     path('<username>/', profile_view, name="userprofile"),
     path('profile/edit/', profile_edit_view, name="profile-edit"), 
@@ -43,6 +45,7 @@ urlpatterns = [
     path('replysent/<pk>/', reply_sent, name='reply-sent'), 
     path('reply/delete/<pk>/', reply_delete_view, name='reply-delete'),
     #path('_/', include('a_landingpages.urls')),
+    path('inbox/', include('a_inbox.urls')),
      
     
 ]

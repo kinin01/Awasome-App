@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Count
 from bs4 import BeautifulSoup
 import requests
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 
 def home_view(request, tag=None): 
@@ -13,16 +14,16 @@ def home_view(request, tag=None):
         tag = get_object_or_404(Tag, slug=tag)
     else:
         posts = Post.objects.all()
-    categories = Tag.objects.all()
+    
         
    
         
-    #paginator = Paginator(posts, 3)
-    #page = int(request.GET.get('page', 1))
-    #try:
-        #posts = paginator.page(page)
-    #except:
-       # return HttpResponse('')
+    paginator = Paginator(posts, 3)
+    page = int(request.GET.get('page', 1))
+    try:
+        posts = paginator.page(page)
+    except:
+       return HttpResponse('')
 
     #try:
        # feature_herobutton = feature_enabled(1, 'Andreas')
@@ -33,9 +34,8 @@ def home_view(request, tag=None):
     
     context = {
         'posts' : posts,
-        'categories': categories,
         'tag' : tag,
-       # 'page' : page,
+        'page' : page,
         #'feature_herobutton' : feature_herobutton
     }
     
@@ -64,7 +64,7 @@ def post_create_view (request):
             except:
                 messages.error(request, 'Requested image is not on Flickr!')
                 return redirect('post-create')
-            
+        
             post.image = image
             
             find_title = sourcecode.select('h1.photo-title')
@@ -82,6 +82,8 @@ def post_create_view (request):
             return redirect('home')
     
     return render(request, 'a_posts/post_create.html', {'form' : form })
+   
+
     
 @login_required    
 def post_delete_view(request, pk):
@@ -117,17 +119,19 @@ def post_page_view(request, pk):
     commentform = CommentCreateForm()
     replyform = ReplyCreateForm()
     
-    #if request.htmx:
-       # if 'top' in request.GET:
-            #comments = post.comments.annotate(num_likes=Count('likes')).filter(num_likes__gt=0).order_by('-num_likes')
-        #else:
-            #comments = post.comments.all()
-        #return render(request, 'snippets/loop_postpage_comments.html', {'comments': comments, 'replyform': replyform})
+    
+    if request.htmx:
+        if 'top' in request.GET:
+            comments = post.comments.annotate(num_likes=Count('likes')).filter(num_likes__gt=0).order_by('-num_likes')
+        else:
+            comments = post.comments.all()
+        return render(request, 'snippets/loop_postpage_comments.html', {'comments': comments, 'replyform': replyform})
     
     context = {
         'post' : post,
         'commentform' : commentform,
        'replyform' : replyform,
+       
     }
     
     return render(request, 'a_posts/post_page.html', context )

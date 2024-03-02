@@ -38,12 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    "django_htmx",
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'django_cleanup.apps.CleanupConfig',
     'a_posts',
     'a_users',
+    'a_inbox',
 ]
 
 SITE_ID = 1
@@ -57,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = 'a_core.urls'
