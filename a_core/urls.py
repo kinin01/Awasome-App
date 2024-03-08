@@ -23,8 +23,8 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    
-    path('admin/', admin.site.urls),
+    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+    path('theboss/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', home_view, name='home'),
     path('category/<tag>/', home_view, name='category'),
