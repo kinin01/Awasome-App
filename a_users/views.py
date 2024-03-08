@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.sites.models import Site
 from django.http import Http404
 from django.contrib.auth.models import User
-#from allauth.account.utils import send_email_confirmation
+from allauth.account.utils import send_email_confirmation
 from a_posts.forms import ReplyCreateForm
 from a_inbox.forms import InboxNewMessageForm
 from .forms import *

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from bs4 import BeautifulSoup
@@ -15,8 +16,7 @@ def home_view(request, tag=None):
     else:
         posts = Post.objects.all()
     
-        
-   
+
         
     paginator = Paginator(posts, 3)
     page = int(request.GET.get('page', 1))
@@ -39,8 +39,8 @@ def home_view(request, tag=None):
         #'feature_herobutton' : feature_herobutton
     }
     
-    #if request.htmx:
-        #return render(request, 'snippets/loop_home_posts.html', context)
+    if request.htmx:
+        return render(request, 'snippets/loop_home_posts.html', context)
         
     return render(request, 'a_posts/home.html', context)
 

@@ -22,6 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-2ugu$+5@(ctexr80)(xcu8*lx+=wvi-rj4hrgm517uft29jn#m'
 
+ENCRYPT_KEY = b'gYG4eNcmABYbV64VnZFAjTNmnCPWHn2JsfOL7a8_vzM='
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -150,6 +152,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
 
 
 ACCOUNT_USERNAME_BLACKLIST = [  'accounts', 'profile', 'category', 'post', 'inbox', 'theboss' ]
