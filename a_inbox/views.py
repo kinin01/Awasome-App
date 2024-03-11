@@ -10,6 +10,7 @@ from .models import *
 
 f = Fernet(settings.ENCRYPT_KEY)
 
+
 @login_required
 def inbox_view(request, conversation_id=None):
     my_conversations = Conversation.objects.filter(participants=request.user)
