@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     'a_posts',
     'a_users',
     'a_inbox',
+    'a_features'
 ]
 
 SITE_ID = 1
