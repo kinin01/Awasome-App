@@ -73,7 +73,8 @@ INSTALLED_APPS = [
     'a_posts',
     'a_users',
     'a_inbox',
-    'a_features'
+    'a_features',
+    'a_landingpages'
 ]
 
 SITE_ID = 1
@@ -89,6 +90,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     "django_htmx.middleware.HtmxMiddleware",
+    'a_landingpages.middleware.landingpage_middleware',
 ]
 
 ROOT_URLCONF = 'a_core.urls'
@@ -104,6 +106,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
             ],
         },
     },
@@ -178,16 +181,19 @@ MEDIA_URL = 'media/'
 
 if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
     DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
+    
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': env('CLOUD_NAME'),
+        'API_KEY': env('CLOUD_API_KEY'),
+        'API_SECRET': env('CLOUD_API_SECRET'),
+        }
+
 else:
     MEDIA_ROOT = BASE_DIR / 'media'
     
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': env('CLOUD_NAME'),
-    'API_KEY': env('CLOUD_API_KEY'),
-    'API_SECRET': env('CLOUD_API_SECRET'),
-}
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
