@@ -40,10 +40,10 @@ if ENVIRONMENT == 'development':
 else:
     DEBUG = False
 
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1', env('RENDER_EXTERNAL_HOSTNAME')]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', env('RENDER_EXTERNAL_HOSTNAME')]
 
-#CSRF_TRUSTED_ORIGINS = [ 'https://*.onrender.com' ]
-ALLOWED_HOSTS =['*']
+CSRF_TRUSTED_ORIGINS = [ 'https://*.onrender.com' ]
+
 
 INTERNAL_IPS = (
     '127.0.0.1',
@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'django_cleanup.apps.CleanupConfig',
+    'django.contrib.sitemaps',
     'a_posts',
     'a_users',
     'a_inbox',
